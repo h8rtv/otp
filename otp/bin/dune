@@ -1,0 +1,4 @@
+(executable
+ (public_name otp)
+ (name main)
+ (libraries otp unix sha base32))
