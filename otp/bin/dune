@@ -1,4 +1,4 @@
 (executable
  (public_name otp)
  (name main)
- (libraries otp unix sha base32))
+ (libraries otp unix sha base32 hex sqlite3 progress calendar))

@@ -12,6 +12,12 @@ bug-reports: "https://github.com/username/reponame/issues"
 depends: [
   "ocaml"
   "dune" {>= "3.10"}
+  "base32"
+  "sha"
+  "hex"
+  "sqlite3"
+  "calendar"
+  "progress"
   "odoc" {with-doc}
 ]
 build: [
