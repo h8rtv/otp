@@ -1,0 +1,4 @@
+(executable
+ (public_name client)
+ (name main)
+ (libraries otp unix sqlite3 progress calendar))

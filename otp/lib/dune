@@ -1,2 +1,3 @@
 (library
- (name otp))
+ (name otp)
+ (libraries unix sha base32 hex sqlite3 calendar))

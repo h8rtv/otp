@@ -1,0 +1,4 @@
+(executable
+ (public_name server)
+ (name main)
+ (libraries otp hex unix sqlite3 calendar))
