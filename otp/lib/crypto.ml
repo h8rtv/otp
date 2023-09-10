@@ -15,15 +15,15 @@ let lambort seed n =
   in
   lamport_rec [] seed n
 
+let date_str d =
+  let open CalendarLib.Calendar in
+  sprintf "%d%d%d%d" (year d) (day_of_year d) (hour d) (minute d)
+
 let password_generator seed d =
-  let date_str =
-    let open CalendarLib.Calendar in
-    sprintf "%d%d%d%d" (year d) (day_of_year d) (hour d) (minute d)
-  in
-  let time_seed = hash @@ bytestring seed ^ bytestring date_str in
+  let date_str = date_str d in
+  let time_seed = hash @@ bytestring seed ^ date_str in
   lambort time_seed 10
 
 let human_readable n hash =
   let encoded = Base32.encode_string @@ bytestring hash in
   String.sub encoded 0 n
-

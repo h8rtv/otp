@@ -1,7 +1,13 @@
 open Otp.Io
 open Otp.Crypto
 
-type user = { username : string; root_password : string; salt : string }
+type user = {
+  username : string;
+  root_password : string;
+  salt : string;
+  last_used : int option;
+  date : string option;
+}
 
 let to_hex (n : int64) : string = Printf.sprintf "%016Lx" n
 
@@ -14,9 +20,8 @@ let read_insert_user () =
   let username = read_field "Username"
   and root_password = hash @@ read_hidden "Root password"
   and salt = gen_salt () in
-  { username; root_password; salt }
+  { username; root_password; salt; last_used = None; date = None }
 
 let read_remote_user () =
-  let username = read_field "Username"
-  and password = hash @@ read_hidden "Password" in
+  let username = read_field "Username" and password = read_hidden "Password" in
   (username, password)

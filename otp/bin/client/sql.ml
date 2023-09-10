@@ -12,17 +12,18 @@ let query db sql =
       let err = sprintf "[%s] %s" (Rc.to_string r) (errmsg db) in
       Result.error err
 
-let fetch_user db username cb =
+let fetch_user db username =
   let sql = sprintf "SELECT * FROM data WHERE username = '%s'" username in
+  let user = ref None in
   let res =
     exec db sql ~cb:(fun row _ ->
         match (row.(0), row.(1), row.(2)) with
         | Some username, Some password, Some root_password ->
-            cb { username; password; root_password }
+            user := Some { username; password; root_password }
         | _ -> ())
   in
   match res with
-  | Rc.OK -> Result.ok ()
+  | Rc.OK -> Result.ok !user
   | r ->
       let err = sprintf "[%s] %s" (Rc.to_string r) (errmsg db) in
       Result.error err

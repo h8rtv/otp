@@ -17,11 +17,14 @@ let later_execution () =
 
   let db = open_db () in
   let username, password = read_local_user () in
-  let* () =
-    fetch_user db username (fun user ->
+  let* user_opt = fetch_user db username in
+  let () =
+    match user_opt with
+    | Some user ->
         if String.compare password user.password == 0 then
           password_render user.root_password
-        else prerr_endline "Unauthorized")
+        else prerr_endline "Auth failed. Wrong password."
+    | None -> prerr_endline "Auth failed. User not found."
   in
   Result.ok ()
 
