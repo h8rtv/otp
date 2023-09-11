@@ -35,7 +35,7 @@ let create_database db =
   in
   query db sql
 
-let initial_persist db user =
+let persist_user db user =
   let sql =
     sprintf "INSERT INTO data VALUES ('%s', '%s', '%s')" user.username
       user.password user.root_password
