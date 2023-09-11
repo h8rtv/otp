@@ -30,7 +30,7 @@ let fetch_user db username =
 
 let create_database db =
   let sql =
-    "CREATE TABLE data (username varchar(24), password char(128), \
+    "CREATE TABLE data (username varchar(24) UNIQUE, password char(128), \
      root_password char(128))"
   in
   query db sql
